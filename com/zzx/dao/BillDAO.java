@@ -10,7 +10,7 @@ import com.zzx.model.Bill;
 
 
 public class BillDAO extends BaseDAO{
-	private final int fieldNum = 9;
+	private final int fieldNum = 8;
 	private final int showNum = 15;
 	private static BillDAO sd = null;
 
@@ -62,7 +62,75 @@ public class BillDAO extends BaseDAO{
 	}
 	
 	//增加
+	public boolean add(Bill bill)
+	{
+		boolean res = false;
+		if (null == bill)
+			return res;
+		try{
+			//查询
+			if (queryByDate(bill.getDate()) == true)
+				return res;
+			//插入
+			String sql = "insert into bill(breakfast,lunch,dinner,others,remarks,total,date) values(?,?,?,?,?,?,?)";
+			String[] param = { bill.getBreakfast(), bill.getLunch(), bill.getDinner(), bill.getOthers(),
+					bill.getRemarks(), bill.getTotal(), bill.getDate() };
+			int rowCount = db.executeUpdate(sql, param);
+			if (1 == rowCount)
+				res = true;
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			destroy();
+		}
+		return res;
+	}
 	
+	//按日期查询
+	public boolean queryByDate(String date) throws SQLException
+	{
+		boolean res = false;
+		if (date == null)
+			return res;
+		String checkSql = "select * from bill where date=?";
+		String[] checkParam = { date };
+		rs = db.executeQuery(checkSql, checkParam);
+		if (rs.next())
+			res = true;
+		return res;
+	}	
+	
+	//查询页面
+	public String[][] list(int pageNum)
+	{
+		String[][] res = null;
+		if (pageNum < 1)
+			return res;
+		List<Bill> bill = new ArrayList<Bill>();
+		int i = 0;
+		int beginNum = (pageNum-1)*showNum;
+		String sql = "select * from bill limit ?,?";
+		Integer[] param = { beginNum, showNum};
+		rs = db.executeQuery(sql, param);
+		try{
+			while(rs.next())
+			{
+				buildList(rs, bill, i);
+				i++;
+			}
+			if (bill.size() > 0)
+			{
+				res = new String[bill.size()][fieldNum];
+				for (int j = 0; j < bill.size(); j++)
+					buildResult(res, bill, j);				
+			}
+		}catch(SQLException se) {
+			se.printStackTrace();
+		}finally {
+			destroy();
+		}
+		return res;
+	}
 	
 	//将rs记录到list中
 	private void buildList(ResultSet rs, List<Bill> list, int i) throws SQLException 
@@ -94,17 +162,4 @@ public class BillDAO extends BaseDAO{
 		result[i][7] = bill.getDate();
 	}
 	
-	//按日期查询
-	private boolean queryByDate(String date) throws SQLException
-	{
-		boolean res = false;
-		if (date == null)
-			return res;
-		String checkSql = "select * from bill where date=?";
-		String[] checkParam = { date };
-		rs = db.executeQuery(checkSql, checkParam);
-		if (rs.next())
-			res = true;
-		return res;
-	}
 }
