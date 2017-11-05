@@ -12,14 +12,13 @@ public class AppConstants {
 	public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
 	// student field
-	public static final String STUDENT_NAME = "姓名";
-	public static final String STUDENT_SNO = "学号";
-	public static final String STUDENT_SEX = "性别";
-	public static final String STUDENT_DEPARTMETN = "院系";
-	public static final String STUDENT_HOMETOWN = "籍贯";
-	public static final String STUDENT_EMAIL = "电子邮件";
-	public static final String STUDENT_TEL = "联系方式";
-	public static final String STUDENT_MARK = "学分";
+	public static final String BREAKFAST = "早餐";
+	public static final String LUNCH = "午餐";
+	public static final String DINNER = "晚餐";
+	public static final String OTHERS = "其他";
+	public static final String REMARKS = "备注";
+	public static final String TOTAL = "总计";
+	public static final String DATE = "日期";
 
 	// login view
 	public static final String LOGIN_TITLE = "登录界面";
@@ -29,7 +28,7 @@ public class AppConstants {
 	public static final String RESET = "重置";
 
 	// main view
-	public static final String MAINVIEW_TITLE = "学生信息管理系统";
+	public static final String MAINVIEW_TITLE = "记账系统";
 	public static final String MAINVIEW_PAGENUM_JLABEL_DI = "第 ";
 	public static final String MAINVIEW_PAGENUM_JLABEL_YE = "/99 页";
 	public static final String MAINVIEW_FIND_JLABEL = "查询结果";
@@ -44,15 +43,15 @@ public class AppConstants {
 	public static final String PARAM_UPDATE = "更新";
 
 	// add view
-	public static final String ADDVIEW_TITLE = "添加学生信息";
+	public static final String ADDVIEW_TITLE = "添加账单";
 	public static final String ADDVIEW_ADDBUTTON = "添加";
 	public static final String EXITBUTTON = "退出";
 
 	// delete view
-	public static final String DELETEVIEW_TITLE = "删除学生信息";
+	public static final String DELETEVIEW_TITLE = "删除账单";
 	public static final String DELETEVIEW_DELETEBUTTON = "删除";
 
 	// update view
-	public static final String UPDATEVIEW_TITLE = "更新学生信息";
+	public static final String UPDATEVIEW_TITLE = "更新账单";
 	public static final String UPDATEVIEW_UPDATEBUTTON = "更新";
 }
