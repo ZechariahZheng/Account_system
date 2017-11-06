@@ -1,13 +1,10 @@
 package com.zzx.view;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
-
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,22 +15,23 @@ import javax.swing.JTextField;
 import com.zzx.bill.AppConstants;
 import com.zzx.bill.DAO;
 import com.zzx.base.BaseDAO;
-import com.zzx.dao.BillDAO;
 import com.zzx.model.Bill;
+import com.zzx.dao.BillDAO;
 
-public class AddView extends JFrame {
-	private static final long serialVersionUID = -1984182788841566838L;
+public class UpdateView extends JFrame {
+	private static final long serialVersionUID = 5292738820127102731L;
 	
 	private JPanel jPanelCenter, jPanelSouth;
-	private JButton addButton, exitButton;
+	private JButton updateButton, exitButton;
+	
 	private JTextField breakfast, lunch, dinner, others, remarks, Date;
 	
-	public AddView() {
+	public UpdateView() {
 		init();
 	}
 	
 	private void init() {
-		setTitle(AppConstants.ADDVIEW_TITLE);
+		setTitle(AppConstants.UPDATEVIEW_TITLE);
 		// center panel
 		jPanelCenter = new JPanel();
 		jPanelCenter.setLayout(new GridLayout(7, 2));
@@ -60,11 +58,7 @@ public class AddView extends JFrame {
 		jPanelCenter.add(new JLabel(AppConstants.DATE));
 		Date = new JTextField();
 		jPanelCenter.add(Date);
-		/*自动获得日期*/
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		String date = df.format(new Date());
-		Date.setText(date);
-		
+				
 		jPanelCenter.add(new JLabel("-------------------------------------------------"));
 		jPanelCenter.add(new JLabel("-------------------------------------------------"));
 
@@ -73,14 +67,14 @@ public class AddView extends JFrame {
 		jPanelSouth.setLayout(new GridLayout(1, 2));
 		
 		//添加按钮
-		addButton = new JButton(AppConstants.ADDVIEW_ADDBUTTON);
-		addButton.addActionListener(new ActionListener() {
+		updateButton = new JButton(AppConstants.UPDATEVIEW_UPDATEBUTTON);
+		updateButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (check()) {
 					Bill bill = new Bill();
 					buildBill(bill);
-					boolean isSuccess = ((BillDAO) BaseDAO.getAbilityDAO(DAO.BillDAO)).add(bill);
+					boolean isSuccess = ((BillDAO) BaseDAO.getAbilityDAO(DAO.BillDAO)).update(bill);
 					if (isSuccess) {
 						setEmpty();
 						if (MainView.currPageNum < 0 || MainView.currPageNum > 99) {
@@ -93,7 +87,7 @@ public class AddView extends JFrame {
 				}
 			}
 		});
-		jPanelSouth.add(addButton);
+		jPanelSouth.add(updateButton);
 		
 		//退出按钮
 		exitButton = new JButton(AppConstants.EXITBUTTON);
@@ -157,5 +151,4 @@ public class AddView extends JFrame {
 		others.setText("");
 		remarks.setText("");
 	}
-	
 }

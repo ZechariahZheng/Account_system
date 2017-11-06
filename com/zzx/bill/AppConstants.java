@@ -41,6 +41,7 @@ public class AppConstants {
 	public static final String PARAM_ADD = "添加";
 	public static final String PARAM_DELETE = "删除";
 	public static final String PARAM_UPDATE = "更新";
+	public static final String PARAM_SUM = "月和";
 
 	// add view
 	public static final String ADDVIEW_TITLE = "添加账单";
@@ -54,4 +55,9 @@ public class AppConstants {
 	// update view
 	public static final String UPDATEVIEW_TITLE = "更新账单";
 	public static final String UPDATEVIEW_UPDATEBUTTON = "更新";
+	
+	// sum view
+	public static final String SUMVIEW_TITLE = "统计账单";
+	public static final String SUMVIEW_SUMBUTTON = "统计";
+	public static final String SUMVIEW_MONTH = "统计月份";
 }

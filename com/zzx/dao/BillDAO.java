@@ -1,8 +1,5 @@
 package com.zzx.dao;
 
-import java.util.Date;
-import java.text.SimpleDateFormat;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -153,48 +150,31 @@ public class BillDAO extends BaseDAO{
 		return res;
 	}
 	
-	//月末查找
-	public String[] queryByMonth(String date)
+	//月份统计
+	public float queryByMonth(String Date)
 	{
-		String[] res = null;
+		float Total = 0.0f;
 		
-		/*1、将传递过来的日期转化为Date类型,再转换为string类型*/
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM");
-		Date time = null;
-		try{
-			time = df.parse(date);
-		}catch(Exception e){
-			System.out.println("parse failed!");
-		}
-		date = df.format(time);
-		
-		/*2、获得数据库中的日期，并将其转换为YY-MM,与传递过来的
+		/*1、获得数据库中的日期，并将其转换为YY-MM,与传递过来的
 		 * 日期进行比较是否为同一月份*/
-		String sql = "select total from bill where date like ?";
+		String sql = "select * from bill where date REGEXP ?";
+		String date = Date + "-.";
 		String[] param = { date };
-		List<String> list = new ArrayList<String>();
 		rs = db.executeQuery(sql, param);
 		try{
 			while(rs.next())
 			{
 				/*将总计添加到List中*/
-				list.add(rs.getString("total"));
+				Total += Float.parseFloat(rs.getString("total"));
 			}
-			if (list.size() > 0)
-			{
-				res = new String[list.size()];
-				for (int i = 0; i < list.size(); i++)
-				{
-					res[i] = list.get(i);
-				}
-			}
+			
 		}catch(Exception e)
 		{
 			System.out.println("sumByMonth failed!");
 		}finally {
 			destroy();
 		}
-		return res;
+		return Total;
 	}
 	
 	//将rs记录到list中

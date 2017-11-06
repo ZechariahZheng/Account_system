@@ -34,7 +34,7 @@ public class MainView extends JFrame {
 	
 	private JPanel jPanelNorth, jPanelSouth, jPanelCenter;
 	private JButton jButtonFirst, jButtonLast, jButtonNext, jButtonPre, jButtonAdd, jButtonDelete, jButtonUpdate,
-	jButtonFind;
+	jButtonFind, jButtonSum;
 	private JLabel currPageNumJLabel;
 	private JTextField condition;
 	public static JTable jTable;
@@ -54,7 +54,7 @@ public class MainView extends JFrame {
 
 		// north panel
 		jPanelNorth = new JPanel();
-		jPanelNorth.setLayout(new GridLayout(1, 5));
+		jPanelNorth.setLayout(new GridLayout(1, 6));
 		condition = new JTextField(AppConstants.PARAM_FIND_CONDITION);
 		condition.addKeyListener(new FindListener());
 		jPanelNorth.add(condition);
@@ -85,7 +85,7 @@ public class MainView extends JFrame {
 		jButtonDelete.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new DeleteView();
+				new DeleteView();
 			}
 		});
 		jPanelNorth.add(jButtonDelete);
@@ -95,10 +95,20 @@ public class MainView extends JFrame {
 		jButtonUpdate.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new UpdateView();
+				new UpdateView();
 			}
 		});
 		jPanelNorth.add(jButtonUpdate);
+		
+		//月和
+		jButtonSum = new JButton(AppConstants.PARAM_SUM);
+		jButtonSum.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new SumView();
+			}
+		});
+		jPanelNorth.add(jButtonSum);
 
 		// center panel
 		jPanelCenter = new JPanel();
